@@ -1,0 +1,220 @@
+import type { RawTerm } from '../types';
+
+/** New glossary terms from lesson group U (lessons 7.1 to 7.3). See AUTHORING.md. */
+export const groupTerms: RawTerm[] = [
+  // 7.1 Observability
+  {
+    id: 'telemetry',
+    term: 'Telemetry',
+    definition: 'The data a running system sends out about itself, such as logs, metrics and traces, to be stored and analyzed elsewhere.',
+    example: 'Every Snapgram service ships its telemetry to shared log, metrics and trace stores.',
+  },
+  {
+    id: 'dashboard',
+    term: 'Dashboard',
+    definition: 'A screen of charts showing a system’s key metrics, used to check its health at a glance and to start investigations.',
+    example: 'The feed dashboard shows latency, traffic, errors and saturation side by side.',
+  },
+  {
+    id: 'log-line',
+    term: 'Log line',
+    aka: ['log', 'logs', 'logging'],
+    definition: 'A timestamped record a program writes about one event, such as a finished request, an error or a sign-in.',
+    example: '“12:04:31 feed request failed: posts query timed out, trace 4bf9…”',
+  },
+  {
+    id: 'structured-logging',
+    term: 'Structured logging',
+    definition: 'Writing each log line as named fields instead of free text, so lines can be filtered, counted and joined by any field.',
+    example: 'Searching service=feed and status=500 finds every failed feed request at once.',
+  },
+  {
+    id: 'metric',
+    term: 'Metric',
+    definition: 'A number measured again and again over time, such as requests per second or error rate, kept as a cheap summary.',
+    example: 'The feed’s p99 latency metric jumped from 300 ms to 1.4 s at 9 p.m. (illustrative).',
+  },
+  {
+    id: 'span',
+    term: 'Span',
+    definition: 'One timed step inside a trace, such as a service call or a database query, with a start time, a duration and a parent span.',
+    example: 'The suggestions span took 300 ms of a 400 ms feed request (illustrative).',
+  },
+  {
+    id: 'trace-sampling',
+    term: 'Trace sampling',
+    definition: 'Keeping only some traces, such as one request in a hundred plus every slow or failed one, to keep tracing affordable.',
+    example: 'Snapgram keeps 1% of feed traces and every trace slower than a second.',
+  },
+  {
+    id: 'context-propagation',
+    term: 'Context propagation',
+    definition: 'Passing the trace ID and the caller’s span ID with every call, usually in a header, so all spans of one request join one trace.',
+    example: 'The gateway adds a trace header, and every service copies it onto the calls it makes.',
+  },
+  {
+    id: 'critical-path',
+    term: 'Critical path',
+    definition: 'The chain of steps that sets a request’s total time. Speeding up a step off the critical path does not make the request faster.',
+    example: 'The posts query is on the feed’s critical path; the like counts, running alongside it, are not.',
+  },
+  {
+    id: 'golden-signals',
+    term: 'Four golden signals',
+    aka: ['golden signals'],
+    definition: 'Latency, traffic, errors and saturation: the four metrics Google’s SRE book recommends watching on any user-facing system.',
+    example: 'The feed dashboard puts its four golden signals on one screen.',
+  },
+  {
+    id: 'saturation',
+    term: 'Saturation',
+    definition: 'How full a system’s most constrained resource is, such as processors, memory or a queue. Trouble usually starts well before 100%.',
+    example: 'The ranking servers run at 85% of their processor capacity at peak (illustrative).',
+  },
+  {
+    id: 'alert',
+    term: 'Alert',
+    definition: 'An automatic notification when something needs attention: a page that wakes someone for urgent problems, or a ticket for slower ones.',
+    example: 'A fast burn of the feed’s error budget pages the on-call engineer.',
+  },
+  {
+    id: 'on-call',
+    term: 'On-call',
+    definition: 'A rotation in which one engineer at a time answers pages for a service, day or night, for a set period such as a week.',
+    example: 'This week one engineer on the feed team is on call.',
+  },
+  {
+    id: 'burn-rate',
+    term: 'Burn rate',
+    definition: 'How fast a service spends its error budget, relative to the pace that would use exactly all of it by the window’s end.',
+    example: 'At a burn rate of 14.4, a 30-day error budget is gone in about two days.',
+  },
+  {
+    id: 'opentelemetry',
+    term: 'OpenTelemetry',
+    definition: 'An open-source standard and set of libraries for emitting traces, metrics and logs in one format that many monitoring tools accept.',
+    example: 'With OpenTelemetry in every service, switching tracing tools needs no code changes.',
+  },
+
+  // 7.2 Security essentials
+  {
+    id: 'password-hashing',
+    term: 'Password hashing',
+    definition: 'Storing the output of a slow, salted one-way function instead of the password, so a stolen database does not reveal passwords and guesses stay expensive.',
+    example: 'Snapgram stores each password as an Argon2id hash with its own salt.',
+  },
+  {
+    id: 'salt',
+    term: 'Salt',
+    definition: 'A random value stored with each password hash, so identical passwords hash differently and precomputed tables of hashes are useless.',
+    example: 'Maya and a stranger use the same password, yet their stored hashes differ.',
+  },
+  {
+    id: 'multi-factor-authentication',
+    term: 'Multi-factor authentication',
+    aka: ['MFA', 'two-factor authentication', '2FA'],
+    definition: 'Requiring a second proof of identity, such as a code from a phone app or a security key, on top of the password.',
+    example: 'With a leaked password alone, an attacker still cannot log in as Maya without her phone.',
+  },
+  {
+    id: 'oauth',
+    term: 'OAuth 2.0',
+    aka: ['OAuth'],
+    definition: 'A standard that lets a user give an app limited access to an account at another service, through tokens, without sharing the password.',
+    example: 'A partner app gets permission to post to Maya’s Snapgram without ever seeing her password.',
+  },
+  {
+    id: 'openid-connect',
+    term: 'OpenID Connect',
+    aka: ['OIDC'],
+    definition: 'A layer on OAuth 2.0 that tells the app who the user is, through a signed ID token; it powers “Sign in with Google”.',
+    example: 'Snapgram reads Maya’s verified email address from the ID token Google returns.',
+  },
+  {
+    id: 'access-token',
+    term: 'Access token',
+    definition: 'A short-lived credential an app sends with each request to prove it may access something on a user’s behalf.',
+    example: 'The partner app’s access token lets it post photos for Maya for one hour.',
+  },
+  {
+    id: 'refresh-token',
+    term: 'Refresh token',
+    definition: 'A longer-lived credential used only to get new access tokens, so access tokens can expire quickly and access can be revoked.',
+    example: 'When Maya disconnects the partner app, Snapgram revokes its refresh token.',
+  },
+  {
+    id: 'certificate',
+    term: 'Certificate',
+    aka: ['TLS certificate'],
+    definition: 'A file, signed by a trusted authority, that ties a public key to a name such as snapgram.com, so clients can check whom they reached.',
+    example: 'Phones trust snapgram.com because its certificate is signed by a well-known certificate authority.',
+  },
+  {
+    id: 'key-management-service',
+    term: 'Key management service',
+    aka: ['KMS'],
+    definition: 'A service that stores encryption keys and does the encrypting with them, so keys never leave it and every use is logged.',
+    example: 'Snapgram’s photo storage asks the key management service to unlock each file’s key.',
+  },
+  {
+    id: 'secret',
+    term: 'Secret',
+    definition: 'A credential a program needs, such as a database password, an API key or a signing key. Whoever holds it can act as that program.',
+    example: 'The feed service’s database password is a secret.',
+  },
+  {
+    id: 'secrets-manager',
+    term: 'Secrets manager',
+    definition: 'A service that stores secrets encrypted, gives each one only to the services allowed to read it, logs every read and helps rotate them.',
+    example: 'The feed service fetches its database password from the secrets manager when it starts.',
+  },
+  {
+    id: 'least-privilege',
+    term: 'Least privilege',
+    aka: ['principle of least privilege'],
+    definition: 'Giving each person, service or key only the permissions its job needs, and nothing more, so a compromise stays small.',
+    example: 'The thumbnail service can read uploads and write thumbnails, but cannot touch payments.',
+  },
+  {
+    id: 'credential-stuffing',
+    term: 'Credential stuffing',
+    definition: 'An attack that tries username and password pairs leaked from other sites, betting that people reuse passwords.',
+    example: 'Millions of leaked pairs hit Snapgram’s login in one night, and a few hundred worked.',
+  },
+
+  // 7.3 Deploying without downtime
+  {
+    id: 'rolling-deployment',
+    term: 'Rolling deployment',
+    aka: ['rolling deploy', 'rolling update'],
+    definition: 'Replacing a service’s servers with the new version a few at a time, so the rest keep serving throughout.',
+    example: 'The feed service updates 20 of its 200 servers at a time.',
+  },
+  {
+    id: 'blue-green-deployment',
+    term: 'Blue-green deployment',
+    definition: 'Running the new version on a second full fleet, switching all traffic to it at once, and keeping the old fleet for rollback.',
+    example: 'Green runs v42 while blue serves v41; one switch moves every user to green.',
+  },
+  {
+    id: 'release-rollback',
+    term: 'Release rollback',
+    aka: ['roll back a release', 'rollback (deploys)'],
+    definition: 'Returning a service to its previous version after a bad release, ideally by moving traffic back rather than rebuilding old code.',
+    example: 'Moving the canary’s 1% of traffic back to v41 took ten seconds.',
+  },
+  {
+    id: 'schema-migration',
+    term: 'Schema migration',
+    aka: ['database migration', 'migration'],
+    definition: 'A scripted change to a database’s structure, such as adding a column or an index, applied to the live database as part of a release.',
+    example: 'A migration adds a caption column to the posts table.',
+  },
+  {
+    id: 'expand-and-contract',
+    term: 'Expand and contract',
+    aka: ['parallel change'],
+    definition: 'Making an incompatible change in safe steps: add the new form beside the old, move everything to it, then remove the old form.',
+    example: 'Renaming a column of the posts table took six small deploys over two weeks, with no downtime.',
+  },
+];

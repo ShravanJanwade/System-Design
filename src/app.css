@@ -1,0 +1,274 @@
+@import 'tailwindcss';
+@import './design/tokens.css';
+
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+@custom-variant reduce-motion (&:where([data-motion='reduce'], [data-motion='reduce'] *));
+
+/* Tailwind is configured only from the design tokens: no default palette, fonts, radii or shadows. */
+@theme inline {
+  --color-*: initial;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  --color-canvas: var(--canvas);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-graphite: var(--graphite);
+  --color-rule: var(--rule);
+  --color-control: var(--control-border);
+  --color-blueprint: var(--blueprint);
+  --color-on-blueprint: var(--on-blueprint);
+  --color-panel: var(--panel);
+  --color-panel-raised: var(--panel-raised);
+  --color-panel-text: var(--panel-text);
+  --color-panel-muted: var(--panel-muted);
+  --color-signal: var(--signal);
+  --color-on-signal: var(--on-signal);
+  --color-panel-alert: var(--panel-alert);
+  --color-panel-success: var(--panel-success);
+  --color-alert: var(--alert);
+  --color-success: var(--success);
+  --color-wash: var(--wash);
+  --color-wash-strong: var(--wash-strong);
+  --color-blueprint-wash: var(--blueprint-wash);
+  --color-alert-wash: var(--alert-wash);
+  --color-success-wash: var(--success-wash);
+  --color-card: var(--card);
+  --color-card-ink: var(--card-ink);
+  --color-card-muted: var(--card-muted);
+  --color-card-alert: var(--card-alert);
+
+  --font-*: initial;
+  --font-display: var(--family-display);
+  --font-sans: var(--family-sans);
+  --font-mono: var(--family-mono);
+
+  --text-*: initial;
+  --text-title: 40px;
+  --text-title--line-height: 44px;
+  --text-title-sm: 32px;
+  --text-title-sm--line-height: 36px;
+  --text-h2: 28px;
+  --text-h2--line-height: 34px;
+  --text-h2-sm: 24px;
+  --text-h2-sm--line-height: 30px;
+  --text-h3: 19px;
+  --text-h3--line-height: 28px;
+  --text-lead: 21px;
+  --text-lead--line-height: 32px;
+  --text-body: var(--body-size);
+  --text-body--line-height: var(--body-leading);
+  --text-ui-lg: 16px;
+  --text-ui-lg--line-height: 24px;
+  --text-ui: 14px;
+  --text-ui--line-height: 20px;
+  --text-small: 13px;
+  --text-small--line-height: 18px;
+  --text-code: 15px;
+  --text-code--line-height: 24px;
+
+  --radius-*: initial;
+  --radius-control: 6px;
+  --radius-card: 8px;
+  --radius-panel: 12px;
+  --radius-full: 9999px;
+
+  --shadow-*: initial;
+  --shadow-float: var(--float-shadow);
+
+  --ease-out: var(--ease-out);
+  --breakpoint-wide: 90rem;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    scroll-padding-top: 88px;
+  }
+  body {
+    background: var(--canvas);
+    color: var(--ink);
+    font-family: var(--family-sans);
+    font-size: 16px;
+    line-height: 24px;
+    min-height: 100dvh;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+  p,
+  li {
+    text-wrap: pretty;
+  }
+  ::selection {
+    background: var(--signal-wash);
+    color: inherit;
+  }
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+  .on-panel:focus-visible,
+  .on-panel :focus-visible {
+    outline-color: var(--signal);
+  }
+  /* A field drawn by its wrapper (an icon beside the input) shows the focus ring on the wrapper. */
+  .focus-ring-within:has(:focus-visible) {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+  /* Every icon is Lucide at a 1.5 stroke (section 12), even one rendered without the prop. */
+  svg.lucide {
+    stroke-width: 1.5;
+  }
+  button {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: not-allowed;
+  }
+  mark {
+    background: var(--signal-wash);
+    color: inherit;
+    border-radius: 3px;
+    padding: 0 2px;
+  }
+  code,
+  kbd,
+  samp {
+    font-family: var(--family-mono);
+  }
+  table {
+    font-variant-numeric: tabular-nums;
+  }
+  svg text {
+    font-family: var(--family-sans);
+  }
+}
+
+@layer utilities {
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+  .measure {
+    max-width: 68ch;
+  }
+  .ease-ui {
+    transition-duration: var(--dur);
+    transition-timing-function: var(--ease-out);
+  }
+}
+
+/* Reduced motion: honored everywhere, from the setting or the OS preference. */
+:root[data-motion='reduce'] *,
+:root[data-motion='reduce'] *::before,
+:root[data-motion='reduce'] *::after {
+  transition-duration: 0ms !important;
+  animation-duration: 0ms !important;
+  animation-iteration-count: 1 !important;
+  scroll-behavior: auto !important;
+}
+
+/* Glossary term trigger */
+.term {
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+  text-decoration-color: color-mix(in srgb, currentColor 60%, transparent);
+  cursor: help;
+  border-radius: 2px;
+  font: inherit;
+  color: inherit;
+}
+.term:hover,
+.term[data-state='open'] {
+  text-decoration-color: var(--blueprint);
+  color: var(--blueprint);
+}
+
+/* Prose rendered from content markdown */
+.prose-blueprint {
+  font-size: var(--body-size);
+  line-height: var(--body-leading);
+}
+.prose-blueprint > * + * {
+  margin-top: 0.85em;
+}
+.prose-blueprint ul,
+.prose-blueprint ol {
+  padding-left: 1.35em;
+}
+.prose-blueprint ul {
+  list-style: disc;
+}
+.prose-blueprint ol {
+  list-style: decimal;
+}
+.prose-blueprint li + li {
+  margin-top: 0.4em;
+}
+.prose-blueprint li::marker {
+  color: var(--graphite);
+}
+.md-link {
+  color: var(--blueprint);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.md-link:hover {
+  text-decoration-thickness: 2px;
+}
+.md-code {
+  font-size: 0.86em;
+  background: var(--wash);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0.04em 0.34em;
+  overflow-wrap: anywhere;
+}
+strong[data-node-match='true'] {
+  background-image: linear-gradient(var(--signal), var(--signal));
+  background-size: 0% 2px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size var(--dur) var(--ease-out);
+}
+strong[data-node-match='true']:hover {
+  background-size: 100% 2px;
+}
+
+/* The blueprint panel: deep blue with a fine white grid */
+.blueprint-grid {
+  background-color: var(--panel);
+  background-image:
+    linear-gradient(var(--panel-grid-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--panel-grid-major) 1px, transparent 1px),
+    linear-gradient(var(--panel-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--panel-grid) 1px, transparent 1px);
+  background-size:
+    80px 80px,
+    80px 80px,
+    16px 16px,
+    16px 16px;
+  background-position: -1px -1px;
+}
+
+/* Hatched fill used for failed components */
+.hatch-alert {
+  background-image: repeating-linear-gradient(135deg, var(--alert-wash) 0 4px, transparent 4px 8px);
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+}

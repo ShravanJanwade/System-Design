@@ -1,0 +1,107 @@
+/*
+ * Blueprint design tokens. Every color in the app comes from here.
+ * Light values live on :root; dark values override them on [data-theme='dark'].
+ * The diagram panel and node cards keep the same values in both themes.
+ */
+:root {
+  color-scheme: light;
+
+  /* Core palette */
+  --canvas: #f2f4f7;
+  --paper: #ffffff;
+  --ink: #13233a;
+  --graphite: #4e5d73;
+  --rule: #d9dee6;
+  /* Borders that identify a control (inputs, the chosen segment): 3:1 or better on paper, canvas and wash. */
+  --control-border: #7a8699;
+  --blueprint: #1d4e89;
+  --on-blueprint: #ffffff;
+  --panel: #173a63;
+  --signal: #ffc832;
+  --alert: #c8372a;
+  --success: #1a7a4d;
+
+  /* Derived surfaces */
+  --wash: #e8ecf2;
+  --wash-strong: #dce3ec;
+  --blueprint-wash: #e3ecf7;
+  --alert-wash: #fbeceb;
+  --success-wash: #e6f3ec;
+  --signal-wash: rgb(255 200 50 / 0.45);
+  --focus: #1d4e89;
+  --scrim: rgb(13 23 38 / 0.45);
+  --float-shadow: 0 18px 44px -14px rgb(13 23 38 / 0.3), 0 2px 8px rgb(13 23 38 / 0.08);
+
+  /* Diagram panel: identical in both themes */
+  --panel-line: #ffffff;
+  --panel-grid: rgb(255 255 255 / 0.06);
+  --panel-grid-major: rgb(255 255 255 / 0.12);
+  --panel-text: #ffffff;
+  --panel-muted: #c5d3e6;
+  --panel-chip-border: rgb(255 255 255 / 0.4);
+  --panel-raised: #1e4675;
+  --panel-alert: #ff7a6b;
+  --panel-success: #5bd39a;
+  --on-signal: #13233a;
+  --card: #ffffff;
+  --card-ink: #13233a;
+  --card-muted: #4e5d73;
+  --card-alert: #c8372a;
+
+  /* Component types (each keeps 3:1 or better against the white card) */
+  --type-client: #5b6b82;
+  --type-edge: #1597a6;
+  --type-compute: #2f9e5b;
+  --type-cache: #d6457a;
+  --type-database: #c7841a;
+  --type-object: #8a6e4b;
+  --type-messaging: #7b5bd6;
+  --type-external: #5b6b82;
+
+  /* Families */
+  --family-display: 'Barlow Semi Condensed', 'Arial Narrow', system-ui, sans-serif;
+  --family-sans: 'Atkinson Hyperlegible Next Variable', 'Atkinson Hyperlegible Next', system-ui, -apple-system,
+    'Segoe UI', sans-serif;
+  --family-mono: 'Atkinson Hyperlegible Mono', ui-monospace, 'Cascadia Mono', 'SF Mono', Consolas, monospace;
+
+  /* Reading size, adjustable in settings */
+  --body-size: 18px;
+  --body-leading: 30px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 0.8, 0.24, 1);
+  --dur: 180ms;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --canvas: #0d1726;
+  --paper: #142238;
+  --ink: #e6ecf5;
+  --graphite: #9aa9bf;
+  --rule: #26364f;
+  --control-border: #667792;
+  --blueprint: #7fa8e0;
+  --on-blueprint: #0d1726;
+  --alert: #ff7a6b;
+  --success: #5bd39a;
+
+  --wash: #1a2a43;
+  --wash-strong: #22354f;
+  --blueprint-wash: #1b2e4b;
+  --alert-wash: #3a2024;
+  --success-wash: #12342a;
+  --signal-wash: rgb(255 200 50 / 0.32);
+  --focus: #7fa8e0;
+  --scrim: rgb(0 0 0 / 0.55);
+  --float-shadow: 0 18px 44px -14px rgb(0 0 0 / 0.65), 0 2px 8px rgb(0 0 0 / 0.35);
+}
+
+:root[data-text='smaller'] {
+  --body-size: 16px;
+  --body-leading: 27px;
+}
+:root[data-text='larger'] {
+  --body-size: 20px;
+  --body-leading: 33px;
+}

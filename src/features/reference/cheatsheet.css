@@ -1,0 +1,233 @@
+/*
+ * Cheat sheets (blueprint sections 11 and 18): dense but legible on one screen, one clean page on paper.
+ * The sheet reuses the lesson blocks (tables, numbers, annotated lines, callouts); these rules only
+ * tighten their spacing inside a sheet. Unlayered, so they win over the Tailwind utilities on the blocks.
+ */
+
+/* ------------------------------------------------------------------ */
+/* Screen                                                              */
+/* ------------------------------------------------------------------ */
+
+/* Sections flow down one column on phones and tablets, two once there is room, three on very wide screens. */
+@media (min-width: 80rem) {
+  .cs-sections {
+    column-count: 2;
+    column-gap: 40px;
+  }
+}
+@media (min-width: 112.5rem) {
+  .cs-sections {
+    column-count: 3;
+  }
+}
+
+.cs-section {
+  break-inside: avoid;
+  border-top: 1px solid var(--rule);
+  padding-top: 8px;
+  padding-bottom: 18px;
+}
+.cs-section-title {
+  line-height: 24px;
+  margin-bottom: 6px;
+}
+.cs-section > div {
+  gap: 10px;
+}
+
+.cs-section figure {
+  gap: 5px;
+}
+.cs-section table :is(th, td) {
+  padding: 5px 12px;
+}
+/* Keeps short row names such as "Cache-aside" on one line. */
+.cs-section tbody th {
+  min-width: 7.5em;
+}
+.cs-section dl.divide-y > div {
+  padding: 5px 12px;
+}
+.cs-section dl.divide-y :is(dt, dd) {
+  font-size: 14px;
+  line-height: 20px;
+}
+.cs-section ol.divide-y > li {
+  padding: 5px 12px;
+  column-gap: 16px;
+}
+.cs-section ol.divide-y code {
+  font-size: 13px;
+  line-height: 20px;
+  /* Wrap formulas and spoken lines between words, not mid-word. */
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+.cs-section .prose-blueprint {
+  font-size: 15px;
+  line-height: 22px;
+}
+.cs-section aside {
+  padding-left: 14px;
+}
+.cs-section figcaption {
+  font-size: 13px;
+  line-height: 18px;
+}
+/* Table rows as cards on phones */
+.cs-section dl.p-4 {
+  padding: 10px 14px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Print: one page, black on white, no app chrome                      */
+/* ------------------------------------------------------------------ */
+
+@page {
+  margin: 12mm;
+}
+
+@media print {
+  /* Light, ink-friendly tokens whatever the screen theme. */
+  html:root:has(.cs-sheet) {
+    color-scheme: light;
+    --canvas: #fff;
+    --paper: #fff;
+    --wash: #fff;
+    --wash-strong: #fff;
+    --ink: #000;
+    --graphite: #333;
+    --rule: #a6a6a6;
+    --blueprint: #000;
+    --blueprint-wash: #fff;
+    --alert: #000;
+    --alert-wash: #fff;
+    --success: #000;
+    --success-wash: #fff;
+    --signal: #fff;
+    --on-signal: #000;
+    --signal-wash: transparent;
+    --focus: #000;
+  }
+  html:root:has(.cs-sheet) body,
+  html:root:has(.cs-sheet) .min-h-dvh {
+    min-height: 0 !important;
+    background: #fff !important;
+  }
+  html:root:has(.cs-sheet) main {
+    padding: 0 !important;
+  }
+
+  .cs-sheet {
+    max-width: none !important;
+    padding: 0 !important;
+    gap: 8px !important;
+    color: #000;
+  }
+  .cs-sheet .cs-head {
+    gap: 4px;
+  }
+  .cs-sheet h1 {
+    font-size: 24px;
+    line-height: 28px;
+  }
+  .cs-sheet .cs-head p {
+    font-size: 12px;
+    line-height: 16px;
+  }
+  .cs-sheet .cs-rough > span:first-child {
+    border: 1px solid #000;
+    padding: 0 6px;
+    font-size: 10.5px;
+  }
+
+  .cs-sections {
+    column-count: 2;
+    column-gap: 22px;
+  }
+  .cs-section {
+    padding-top: 6px;
+    padding-bottom: 12px;
+  }
+  .cs-section-title {
+    font-size: 16px;
+    line-height: 20px;
+    margin-bottom: 5px;
+  }
+  .cs-section > div {
+    gap: 6px;
+  }
+  .cs-section figure {
+    gap: 3px;
+  }
+
+  /* Tables print as tables, never as the phone cards, and rows never split. */
+  .cs-sheet .md\:hidden {
+    display: none !important;
+  }
+  .cs-sheet .hidden.md\:block {
+    display: block !important;
+    overflow: visible !important;
+  }
+  .cs-sheet table {
+    font-size: 12px;
+    line-height: 16px;
+  }
+  .cs-sheet table :is(th, td) {
+    padding: 3px 7px;
+  }
+  .cs-sheet tr {
+    break-inside: avoid;
+  }
+
+  .cs-section dl.divide-y > div {
+    padding: 3px 7px;
+    column-gap: 10px;
+  }
+  .cs-section dl.divide-y :is(dt, dd) {
+    font-size: 12px;
+    line-height: 16px;
+  }
+  .cs-section dl.divide-y dd span {
+    font-size: 11px;
+  }
+  .cs-section ol.divide-y > li {
+    padding: 3px 7px;
+    row-gap: 0;
+  }
+  .cs-section ol.divide-y code {
+    font-size: 11.5px;
+    line-height: 15.5px;
+  }
+  .cs-section ol.divide-y li > span {
+    font-size: 12px;
+    line-height: 16px;
+  }
+  .cs-section .prose-blueprint {
+    font-size: 12px;
+    line-height: 16px;
+  }
+  .cs-section aside {
+    border-left-width: 2px;
+    padding-left: 8px;
+  }
+  .cs-section figcaption {
+    font-size: 11px;
+    line-height: 14px;
+  }
+
+  /* Links and glossary terms read as plain text on paper. */
+  .cs-sheet a,
+  .cs-sheet .term {
+    color: #000 !important;
+    text-decoration: none !important;
+  }
+  .cs-sheet .rounded-card {
+    border-radius: 3px;
+  }
+  .cs-sheet .cs-foot {
+    padding-top: 5px;
+    font-size: 10px;
+    line-height: 13px;
+  }
+}
